@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I LOVE GIT (Arcobaleno Pulsante)</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000; /* Sfondo nero per contrasto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial Black', sans-serif;
+            flex-direction: column;
+        }
+
+        .rainbow-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .rainbow-item {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            animation: rotateAndMove 10s infinite linear;
+            border-radius: 50%;
+            opacity: 0.8;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes rotateAndMove {
+            0% {
+                transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translate(calc(var(--x) * 1px + var(--dx) * 1px), calc(var(--y) * 1px + var(--dy) * 1px)) rotate(360deg) scale(1.2);
+            }
+            100% {
+                transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) rotate(720deg) scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 10vw; /* Dimensione responsiva */
+            color: white;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: pulseRainbow 2s infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            letter-spacing: 5px;
+        }
+
+        @keyframes pulseRainbow {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px red, 0 0 20px orange, 0 0 30px yellow, 0 0 40px green, 0 0 50px blue, 0 0 60px indigo, 0 0 70px violet;
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 20px violet, 0 0 30px indigo, 0 0 40px blue, 0 0 50px green, 0 0 60px yellow, 0 0 70px orange, 0 0 80px red;
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px red, 0 0 20px orange, 0 0 30px yellow, 0 0 40px green, 0 0 50px blue, 0 0 60px indigo, 0 0 70px violet;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="rainbow-container" id="rainbowContainer"></div>
+    <h1>I LOVE GIT</h1>
+
+    <script>
+        const container = document.getElementById('rainbowContainer');
+        const numberOfItems = 50; // Quanti elementi arcobaleno vuoi
+
+        for (let i = 0; i < numberOfItems; i++) {
+            const item = document.createElement('div');
+            item.classList.add('rainbow-item');
+            
+            // Posizioni e direzioni casuali
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const dx = (Math.random() - 0.5) * 400; // Spostamento x
+            const dy = (Math.random() - 0.5) * 400; // Spostamento y
+            const size = Math.random() * 80 + 20; // Dimensione casuale
+
+            item.style.setProperty('--x', x);
+            item.style.setProperty('--y', y);
+            item.style.setProperty('--dx', dx);
+            item.style.setProperty('--dy', dy);
+            item.style.width = `${size}px`;
+            item.style.height = `${size}px`;
+            item.style.animationDelay = `${Math.random() * -10}s`; // Ritardo per sfalsare le animazioni
+            item.style.animationDuration = `${Math.random() * 10 + 5}s`; // Durata casuale
+            item.style.top = `${y}px`;
+            item.style.left = `${x}px`;
+
+            container.appendChild(item);
+        }
+    </script>
+</body>
+</html>
